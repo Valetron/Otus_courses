@@ -21,7 +21,7 @@ jobs:
               ; GIT_CURR_BRANCH=$(echo "${GIT_CURR_BRANCH}" | tr '/' '_') |
               ; echo "after = ${GIT_CURR_BRANCH}"
 
-      working-directory: ${GIT_CURR_BRANCH}
+        working-directory: ${GIT_CURR_BRANCH}
       - run: ls ${{ github.workspace }}
       
       #- name: Create Release
