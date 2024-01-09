@@ -16,9 +16,9 @@ jobs:
         id: branch-names
         uses: tj-actions/branch-names@v8
       - name: Running on the default branch.
-        run: GIT_CURR_BRANCH=${{ steps.branch-names.outputs.current_branch }} |
-              ; echo "before = ${GIT_CURR_BRANCH}" |
-              ; GIT_CURR_BRANCH=$(echo "${GIT_CURR_BRANCH}" | tr '/' '_') |
+        run: GIT_CURR_BRANCH=${{ steps.branch-names.outputs.current_branch }}
+              ; echo "before = ${GIT_CURR_BRANCH}"
+              ; GIT_CURR_BRANCH=$(echo "${GIT_CURR_BRANCH}" | tr '/' '_')
               ; echo "after = ${GIT_CURR_BRANCH}"
 
         working-directory: ${GIT_CURR_BRANCH}
