@@ -17,8 +17,7 @@ jobs:
         uses: tj-actions/branch-names@v8
       - name: Running on the default branch.
         #if: steps.branch-names.outputs.is_default == 'true'
-        run: |
-          echo "Running on default: ${{ steps.branch-names.outputs.current_branch }}" 
+        run: GIT_CURR_BRANCH=${{ steps.branch-names.outputs.current_branch }} ; echo "res = ${GIT_CURR_BRANCH}"
       
       - name: Create Release
         id: create_release
