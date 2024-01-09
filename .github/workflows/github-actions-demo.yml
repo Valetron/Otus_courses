@@ -10,7 +10,7 @@ jobs:
         with:
           submodules: true
       - run: echo "Update system and install Boost.Test"
-      - run: sudo apt-get update && sudo apt-get install cmake libboost-test-dev -y
+      - run: sudo apt-get update && sudo apt-get install cmake googletest -y
       - run: ls ${{ github.workspace }}
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
