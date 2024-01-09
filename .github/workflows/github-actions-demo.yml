@@ -11,7 +11,15 @@ jobs:
       - run: echo "Update system and install Boost.Test"
       - run: sudo apt-get update && sudo apt-get install cmake libboost-test-dev -y
       - run: ls ${{ github.workspace }}
-      - run: GIT_CURR_BRANCH=`echo ${GITHUB_REF##*/}` ; echo "cur branch is ${GIT_CURR_BRANCH}"
+      
+      - name: Get branch names.
+        id: branch-names
+        uses: tj-actions/branch-names@v8
+      - name: Running on the default branch.
+        if: steps.branch-names.outputs.is_default == 'true'
+        run: |
+          echo "Running on default: ${{ steps.branch-names.outputs.current_branch }}" 
+      
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
