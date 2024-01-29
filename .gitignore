@@ -1,2 +1,5 @@
 *CMakeLists.txt.*
 build*/
+*.orig
+*.zip
+examples/
