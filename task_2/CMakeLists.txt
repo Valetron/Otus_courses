@@ -12,8 +12,8 @@ set_target_properties(
 
 #find_package(GTest REQUIRED)
 
-# target_compile_options(${PROJECT_NAME} PRIVATE
-    # -Wall -Wextra -pedantic -Werror)
+target_compile_options(${PROJECT_NAME} PRIVATE
+    -Wall -Wextra -pedantic -Werror)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 

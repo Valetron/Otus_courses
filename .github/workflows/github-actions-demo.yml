@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
-      - run: echo "Update system and install Boost.Test"
+      - run: echo "Update system and install Google Test"
       - run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
       - run: ls ${{ github.workspace }}
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
