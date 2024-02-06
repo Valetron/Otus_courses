@@ -10,7 +10,7 @@ set_target_properties(
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON)
 
-find_package(GTest REQUIRED)
+#find_package(GTest REQUIRED)
 
 # target_compile_options(${PROJECT_NAME} PRIVATE
     # -Wall -Wextra -pedantic -Werror)
