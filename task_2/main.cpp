@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 #include <fstream>
 #include <cstddef>
 #include <iostream>
@@ -10,22 +11,17 @@ using byte = unsigned char;
 
 namespace homework
 {
-const auto readFile = [](const char* filePath) -> std::string
+const auto readFile = []() -> std::string
 {
-    std::ifstream file(filePath);
-
-    if (!file.is_open())
-        return {};
-
     std::string data{};
-    for (std::string line; std::getline(file, line); )
+
+    for (std::string line; std::getline(std::cin, line); )
     {
         const auto firstTab = line.find('\t');
+
         if (std::string::npos != firstTab)
             data += line.substr(0, firstTab) + '\n';
     }
-
-    file.close();
 
     return data;
 };
@@ -56,32 +52,6 @@ const auto splitIp = [](const std::string& rawIps, listOctets& ips)
             break;
         }
     }
-};
-
-const auto isBigger = [](const std::string& a, const std::string& b) -> bool
-{
-    if (a.size() > b.size())
-    {
-        return true;
-    }
-    else if (a.size() < b.size())
-    {
-        return false;
-    }
-    else
-    {
-        for (std::size_t i = 0; i < a.size(); ++i)
-        {
-            if (a.at(i) > b.at(i))
-                return true;
-            else if (a.at(i) < b.at(i))
-                return false;
-            else
-                continue;
-        }
-    }
-
-    return false;
 };
 
 const auto stupidSort = [](listOctets& ips)
@@ -122,79 +92,65 @@ const auto printList = [](const listOctets& ips)
     for (const auto& ip : ips)
     {
         for (const auto& i : ip)
-            std::clog << i << " ";
+            std::cout << i << ".";
 
-        std::clog << "\n";
+        std::cout << "\b \b" << '\n';
     }
 };
 
 const auto printByFirtsByte = [](const listOctets& ips, int firstByte)
 {
+    listOctets newList;
+
     for (const auto& ip : ips)
     {
         if (firstByte == ip.at(0))
-        {
-            for (auto it = ip.begin(); it != ip.cend(); ++it)
-            {
-                std::clog << *it << " ";
-            }
-            std::clog << "\n";
-        }
+            newList.push_back(ip);
     }
+
+    stupidSort(newList);
+    printList(newList);
+
 };
 
 const auto printByFirtsAndSecondByte = [](const listOctets& ips, int firstByte, int secondByte)
 {
+    listOctets newList;
+
     for (const auto& ip : ips)
     {
         if (firstByte == ip.at(0)
             && secondByte == ip.at(1))
-        {
-            for (auto it = ip.begin(); it != ip.cend(); ++it)
-            {
-                std::clog << *it << " ";
-            }
-            std::clog << "\n";
-        }
+            newList.push_back(ip);
     }
+
+    stupidSort(newList);
+    printList(newList);
 };
 
 const auto printByAnyByte = [](const listOctets& ips, int byte)
 {
+    listOctets newList;
+
     for (const auto& ip : ips)
     {
         if (byte == ip.at(0)
             || byte == ip.at(1)
             || byte == ip.at(2)
             || byte == ip.at(3))
-        {
-            for (auto it = ip.begin(); it != ip.cend(); ++it)
-            {
-                std::clog << *it << " ";
-            }
-            std::clog << "\n";
-        }
+            newList.push_back(ip);
     }
+
+    stupidSort(newList);
+    printList(newList);
 };
 
 } // namespace homework
 
 
-int main(int argc, char** argv)
+int main()
 {
-    if (argc < 2)
-    {
-        std::cerr << "Usage: " << argv[0] << " ip_filter.tsv\n";
-        return 0xDEADBEEF;
-    }
-
-    if (!fs::exists(argv[1]) || !fs::is_regular_file(argv[1]))
-    {
-        std::cerr << "File error\n";
-        return 0xDEADBEEF;
-    }
-
-    auto rawData = homework::readFile(argv[1]);
+    auto rawData = homework::readFile();
     if (rawData.empty())
     {
         std::cerr << "Data is empty\n";
@@ -208,13 +164,13 @@ int main(int argc, char** argv)
     // task 1
     homework::printList(ips);
 
-    // task 2
+    // // task 2
     homework::printByFirtsByte(ips, 1);
 
-    // task 3
+    // // task 3
     homework::printByFirtsAndSecondByte(ips, 46, 70);
 
-    // task 4
+    // // task 4
     homework::printByAnyByte(ips, 46);
 
     return 0;
