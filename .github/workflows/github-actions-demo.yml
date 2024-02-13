@@ -11,18 +11,19 @@ jobs:
         id: branch_name
         run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )" >> $GITHUB_OUTPUT
 
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-      - run: echo "Update system and install Google Test"
-      #- run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
-      #- run: ls ${{ github.workspace }}
-      #- run: cd ${{ steps.branch_name.outputs.current_branch }}
-      - working-directory: ${{ steps.branch_name.outputs.current_branch }}
-      - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
-      - run: cmake --build .
-      - run: cmake --build . --target test
-      - run: cmake --build . --target package
+      - name: build
+        - uses: actions/checkout@v4
+        working-directory: ${{ steps.branch_name.outputs.current_branch }}
+          with:
+            submodules: true
+        - run: echo "Update system and install Google Test"
+        #- run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
+        #- run: ls ${{ github.workspace }}
+        #- run: cd ${{ steps.branch_name.outputs.current_branch }}
+        - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
+        - run: cmake --build .
+        - run: cmake --build . --target test
+        - run: cmake --build . --target package
 
       - name: Create Release
         id: create_release
