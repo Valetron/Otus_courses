@@ -12,6 +12,15 @@ jobs:
       - run: echo "Update system and install Google Test"
       - run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
       - run: ls ${{ github.workspace }}
+
+      # TODO: cd to branch_name_folder
+      run: |
+          git branch -a
+          echo Current branch is ${GITHUB_REF}
+          export BRANCH_NAME=$(echo ${GITHUB_REF} | awk -F'/' '{print $3}')
+
+      run: echo $BRANCH_NAME
+
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test

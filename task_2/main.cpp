@@ -91,10 +91,13 @@ const auto printList = [](const listOctets& ips)
 {
     for (const auto& ip : ips)
     {
-        for (const auto& i : ip)
-            std::cout << i << ".";
-
-        std::cout << "\b \b" << '\n';
+        for (std::size_t i = 0; i < ip.size(); ++i)
+        {
+            if (3 > i)
+                std::cout << ip.at(i) << ".";
+            else
+                std::cout << ip.at(i) << "\n";
+        }
     }
 };
 

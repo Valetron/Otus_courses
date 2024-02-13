@@ -12,8 +12,13 @@ set_target_properties(
 
 #find_package(GTest REQUIRED)
 
-target_compile_options(${PROJECT_NAME} PRIVATE
-    -Wall -Wextra -pedantic -Werror)
+if (MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        /W4)
+else ()
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        -Wall -Wextra -pedantic -Werror)
+endif()
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
