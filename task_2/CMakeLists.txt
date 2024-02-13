@@ -4,7 +4,6 @@ set(PROJECT_VESRION 0.0.1)
 project(ip_filter VERSION ${PROJECT_VESRION})
 
 add_executable(${PROJECT_NAME} main.cpp)
-add_executable(test_version test.cpp)
 
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES
