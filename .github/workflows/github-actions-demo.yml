@@ -3,9 +3,6 @@ run-name: ${{ github.actor }} pushed to ${{ inputs.deploy_target }}
 on: [push]
 jobs:
 
-  defaults:
-      run:
-
   build:
     runs-on: ubuntu-latest
     permissions: write-all
