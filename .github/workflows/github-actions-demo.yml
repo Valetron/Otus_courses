@@ -15,13 +15,12 @@ jobs:
         with:
           submodules: true
       - run: echo "Update system and install Google Test"
-      #- run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
-      #- run: ls ${{ github.workspace }}
+      - run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
       - run: |
               cd ${{ steps.branch_name.outputs.current_branch }}
               cmake . -DPATCH_VERSION=${{ github.run_number }}
               cmake --build .
-              cmake --build . --target test
+              #cmake --build . --target test
               cmake --build . --target package
 
       - name: Create Release

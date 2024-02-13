@@ -111,7 +111,6 @@ const auto printByFirtsByte = [](const listOctets& ips, int firstByte)
             newList.push_back(ip);
     }
 
-    stupidSort(newList);
     printList(newList);
 
 };
@@ -127,7 +126,6 @@ const auto printByFirtsAndSecondByte = [](const listOctets& ips, int firstByte, 
             newList.push_back(ip);
     }
 
-    stupidSort(newList);
     printList(newList);
 };
 
@@ -144,7 +142,6 @@ const auto printByAnyByte = [](const listOctets& ips, int byte)
             newList.push_back(ip);
     }
 
-    stupidSort(newList);
     printList(newList);
 };
 
