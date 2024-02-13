@@ -17,7 +17,7 @@ jobs:
       - run: echo "Update system and install Google Test"
       #- run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
       - run: ls ${{ github.workspace }}
-      - run: cd ${GITHUB_REF_NAME}
+      - run: cd ${{ steps.branch_name.outputs.current_branch }}
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test
