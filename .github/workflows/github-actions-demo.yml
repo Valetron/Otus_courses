@@ -12,7 +12,7 @@ jobs:
         run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )" >> $GITHUB_OUTPUT
 
       - name: build
-        - uses: actions/checkout@v4
+        uses: actions/checkout@v4
         working-directory: ${{ steps.branch_name.outputs.current_branch }}
           with:
             submodules: true
