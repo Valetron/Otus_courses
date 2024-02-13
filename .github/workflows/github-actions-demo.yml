@@ -9,7 +9,7 @@ jobs:
 
       - name: Get branch name
         id: branch_name
-        run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )"
+        run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )" >> $GITHUB_OUTPUT
 
       - uses: actions/checkout@v4
         with:
