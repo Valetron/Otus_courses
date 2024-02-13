@@ -3,29 +3,26 @@ run-name: ${{ github.actor }} pushed to ${{ inputs.deploy_target }}
 on: [push]
 jobs:
 
-  prepare:
-    stepas:
-      - name: Get branch name
-        id: branch_name
-        run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )" >> $GITHUB_OUTPUT
-  
   defaults:
       run:
-        working-directory: ${{ steps.branch_name.outputs.current_branch }}
 
   build:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
 
+      - name: Get branch name
+        id: branch_name
+        run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )" >> $GITHUB_OUTPUT
 
       - uses: actions/checkout@v4
         with:
           submodules: true
       - run: echo "Update system and install Google Test"
       #- run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
+      - working-directory: ${{ steps.branch_name.outputs.current_branch }}
       - run: ls ${{ github.workspace }}
-      - run: cd ${{ steps.branch_name.outputs.current_branch }}
+      #- run: cd ${{ steps.branch_name.outputs.current_branch }}
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test
