@@ -5,10 +5,16 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(tge VERSION ${PROJECT_VESRION} DESCRIPTION "Terminal graphic editor" LANGUAGES CXX)
 
+include_directories(${PROJECT_SOURCE_DIR}/headers)
+
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB HEADERS "headers/*.hpp")
 
 add_executable(${PROJECT_NAME} main.cpp)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(${PROJECT_NAME} PUBLIC DEBUG)
+endif()
 
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES

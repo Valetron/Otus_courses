@@ -9,6 +9,8 @@ void run();
 void exit();
 void printHelp();
 void drawFigure();
+void importFile();
+void exportFile();
 
 } // namespace TUI
 
@@ -37,6 +39,10 @@ void TUI::run()
             TUI::printHelp();
         else if ('d' == userInput)
             TUI::drawFigure();
+        else if ('i' == userInput)
+            TUI::importFile();
+        else if ('x' == userInput)
+            TUI::exportFile();
         else
             std::cerr << "Wrong input!\n";
     }
@@ -58,4 +64,14 @@ void TUI::printHelp()
 void TUI::drawFigure()
 {
     std::clog << "draw figure\n";
+}
+
+void TUI::exportFile()
+{
+
+}
+
+void TUI::importFile()
+{
+
 }
