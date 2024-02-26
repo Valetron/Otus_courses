@@ -17,6 +17,7 @@ void exportFile();
 
 int main(void)
 {
+    // TODO: переместить все управление в класс Controller, оставить в main только run()
     TUI::run();
 
     return 0;
@@ -33,7 +34,7 @@ void TUI::run()
         std::cout << ">> ";
         std::cin >> userInput;
 
-        if ('e' == userInput)
+        if ('q' == userInput)
             TUI::exit();
         else if ('h' == userInput)
             TUI::printHelp();

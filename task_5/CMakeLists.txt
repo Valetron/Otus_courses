@@ -5,10 +5,16 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(tge VERSION ${PROJECT_VESRION} DESCRIPTION "Terminal graphic editor" LANGUAGES CXX)
 
-include_directories(${PROJECT_SOURCE_DIR}/headers)
+set(MVC_FOLDER "./MVC")
+set(FIGURES_FOLDER "./figures")
 
-file(GLOB SOURCES "src/*.cpp")
-file(GLOB HEADERS "headers/*.hpp")
+include_directories(${MVC_FOLDER}/headers)
+include_directories(${FIGURES_FOLDER}/headers)
+
+file(GLOB SOURCES "${MVC_FOLDER}/src/*.cpp")
+file(GLOB SOURCES "${FIGURES_FOLDER}/src/*.cpp")
+file(GLOB HEADERS "${MVC_FOLDER}/headers/*.hpp")
+file(GLOB HEADERS "${FIGURES_FOLDER}/headers/*.hpp")
 
 add_executable(${PROJECT_NAME} main.cpp)
 
