@@ -16,7 +16,7 @@ file(GLOB SOURCES "${FIGURES_FOLDER}/src/*.cpp")
 file(GLOB HEADERS "${MVC_FOLDER}/headers/*.hpp")
 file(GLOB HEADERS "${FIGURES_FOLDER}/headers/*.hpp")
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} main.cpp)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(${PROJECT_NAME} PUBLIC DEBUG)
