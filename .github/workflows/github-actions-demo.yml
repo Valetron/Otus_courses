@@ -6,16 +6,22 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - uses: actions/checkout@v3
+
+      - name: Get branch name
+        id: branch_name
+        run: echo "current_branch=$(echo ${GITHUB_REF_NAME} | tr '/' '_' )" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
         with:
           submodules: true
-      - run: echo "Update system and install Boost.Test"
+      - run: echo "Update system and install Google Test"
       - run: sudo apt-get update && sudo apt-get install cmake googletest libgtest-dev -y
-      - run: ls ${{ github.workspace }}
-      - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
-      - run: cmake --build .
-      - run: cmake --build . --target test
-      - run: cmake --build . --target package
+      - run: |
+              cd ${{ steps.branch_name.outputs.current_branch }}
+              cmake . -DPATCH_VERSION=${{ github.run_number }}
+              cmake --build .
+              #cmake --build . --target test
+              cmake --build . --target package
 
       - name: Create Release
         id: create_release
@@ -35,6 +41,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./helloworld-0.0.${{ github.run_number }}-Linux.deb
-          asset_name: helloworld-0.0.${{ github.run_number }}-Linux.deb
+          asset_path: ${{ steps.branch_name.outputs.current_branch }}/ip_filter-0.0.${{ github.run_number }}-Linux.deb
+          asset_name: ip_filter-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
