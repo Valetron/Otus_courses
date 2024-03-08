@@ -3,3 +3,4 @@ build*/
 *.orig
 *.zip
 examples/
+.vscode
