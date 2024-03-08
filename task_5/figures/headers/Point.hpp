@@ -2,6 +2,7 @@
 
 #include <ostream>
 
+
 struct Point
 {
 public:

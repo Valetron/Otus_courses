@@ -8,6 +8,8 @@
 class Triangle final : public IPolygon
 {
 public:
+    Triangle();
+    ~Triangle();
     void draw() override;
 
 private:

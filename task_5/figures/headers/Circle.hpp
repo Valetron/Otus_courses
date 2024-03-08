@@ -3,10 +3,10 @@
 #include "IFigure.hpp"
 
 
-class IPolygon : public IFigure
+class Circle final : public IFigure
 {
 public:
-    IPolygon();
-    ~IPolygon();
+    Circle();
+    ~Circle();
     void draw() override;
 };
