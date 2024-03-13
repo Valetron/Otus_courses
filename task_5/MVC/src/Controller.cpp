@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 Controller::Controller()
 {
     _model = std::make_unique<Model>();
@@ -48,4 +49,14 @@ void Controller::run()
             std::cerr << "Wrong input!\n";
         }
     }
+}
+
+void Controller::printHelp()
+{
+    std::clog << "q - exit\n"
+                 "h - print this help\n"
+                 "d - draw figure\n"
+                 "e - erase figure\n"
+                 "i - import file\n"
+                 "s - export file\n";
 }
