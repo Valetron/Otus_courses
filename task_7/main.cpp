@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include <iostream>
 
+#include "CommandProcessor.hpp"
+
 int main(int argc, char** argv)
 {
     if (1 >= argc)
@@ -15,6 +17,12 @@ int main(int argc, char** argv)
         std::cerr << "Wrong value for N: " << argv[1] << "\n";
         return 0xDEAD;
     }
+    else
+    {
+        CommandProcessor cp{n};
+        cp.printCommands();
+    }
+
 
     return EXIT_SUCCESS;
 }

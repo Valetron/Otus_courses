@@ -8,7 +8,15 @@ project(bulk VERSION ${PROJECT_VESRION})
 #find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 # find_package(GTest REQUIRED)
 
-add_executable(${PROJECT_NAME} main.cpp)
+include_directories(${PROJECT_SOURCE_DIR}/headers)
+
+file(GLOB SOURCES "src/*.cpp")
+file(GLOB HEADERS "headers/*.h")
+
+add_executable(${PROJECT_NAME}
+               ${HEADERS}
+               ${SOURCES}
+               main.cpp)
 
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES
