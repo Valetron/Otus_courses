@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(PATCH_VERSION "2" CACHE INTERNAL "Patch version")
+set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(bulk VERSION ${PROJECT_VESRION})
@@ -17,8 +17,11 @@ set_target_properties(
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR})
 
-target_compile_options(${PROJECT_NAME} PRIVATE
-    -Wall -Wextra -pedantic -Werror)
+if (MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4)
+else ()
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror)
+endif()
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
