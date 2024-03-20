@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     else
     {
         CommandProcessor cp{n};
-        cp.printCommands();
+        cp.run();
     }
 
 

@@ -13,9 +13,9 @@ public:
     void run();
 
 private:
-    void printCommands();
+    void printCommands(const CommandBlock& block);
 
 private:
-    const int _blockSize;
+    const std::size_t _blockSize;
     std::vector<CommandBlock> _cmdHistory;
 };
