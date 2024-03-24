@@ -10,7 +10,7 @@ using CommandBlock = std::vector<std::string>;
 class CommandProcessor final
 {
 public:
-    explicit CommandProcessor(int n);
+    explicit CommandProcessor(int);
     ~CommandProcessor();
     void run();
 
@@ -18,13 +18,14 @@ private:
     void printCommands(const CommandBlock&);
     void closeFile();
     void openFile();
-    void writeFile(const std::string&);
+    void writeFile(const CommandBlock&);
 
     template<typename T>
     void log(T& dst, const CommandBlock&);
 
 private:
-    const std::size_t _blockSize;
-    std::stack<std::ofstream> _blocksFiles;
-    std::vector<CommandBlock> _cmdHistory;
+    const std::size_t           _blockSize;
+    std::stack<std::ofstream>   _blocksFiles;
+    std::vector<CommandBlock>   _cmdHistory;
+    bool                        _newFile{false};
 };

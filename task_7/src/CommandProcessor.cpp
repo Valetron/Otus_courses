@@ -41,6 +41,7 @@ void CommandProcessor::run()
         // TODO: check for '{', '}'
         if (userInput.empty())
         {
+            writeFile(block);
             break;
         }
         else if ((_blockSize > block.size()) && !block.empty())
@@ -54,20 +55,11 @@ void CommandProcessor::run()
         }
         else if (_blockSize == block.size())
         {
-            if (!_blocksFiles.empty())
-            {
-                auto& file = _blocksFiles.top();
-                if (file)
-                {
-                    log(file, block);
-                    closeFile();
-                }
-            }
-
-            log(std::cout, block);
+            writeFile(block);
 
             _cmdHistory.push_back(std::move(block));
             block.push_back(std::move(userInput));
+            openFile();
         }
     }
 
@@ -99,6 +91,21 @@ void CommandProcessor::closeFile()
         file.close();
 
     _blocksFiles.pop();
+}
+
+void CommandProcessor::writeFile(const CommandBlock& block)
+{
+    if (!_blocksFiles.empty())
+    {
+        auto& file = _blocksFiles.top();
+        if (file)
+        {
+            log(file, block);
+            closeFile();
+        }
+    }
+
+    log(std::cout, block);
 }
 
 template<typename T>
