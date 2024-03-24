@@ -25,7 +25,7 @@ private:
 
 private:
     const std::size_t           _blockSize;
-    std::stack<std::ofstream>   _blocksFiles;
+    std::stack<char>            _scopeBlocks;
     std::vector<CommandBlock>   _cmdHistory;
-    bool                        _newFile{false};
+    std::ofstream               _file;
 };
