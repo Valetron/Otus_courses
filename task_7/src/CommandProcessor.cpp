@@ -17,9 +17,9 @@ CommandProcessor::~CommandProcessor()
 
 void CommandProcessor::run()
 {
-    CommandBlock block;
-    CommandBlock tmp;
-    block.reserve(_blockSize);
+    CommandBlock staticBlock;
+    CommandBlock dynamicBlock;
+    staticBlock.reserve(_blockSize);
 
     while (true)
     {
@@ -29,7 +29,7 @@ void CommandProcessor::run()
         if (userInput.empty())
         {
             if (_scopeBlocks.empty())
-                writeFile(block);
+                writeFile(staticBlock);
 
             break;
         }
@@ -38,9 +38,9 @@ void CommandProcessor::run()
         {
             if (_scopeBlocks.empty())
             {
-                tmp = block;
-                writeFile(block);
-                block.clear();
+                // dynamicBlock = staticBlock;
+                writeFile(staticBlock);
+                staticBlock.clear();
 //                _cmdHistory.push_back(std::move(block));
 //                openFile();
             }
@@ -49,7 +49,8 @@ void CommandProcessor::run()
 //                block.resize(block.size() * 10); // NOTE: ?
 //                tmp.push_back(std::move(block));
 //                tmp = std::move(block);
-                tmp.insert(tmp.end(), block.begin(), block.end());
+                // dynamicBlock.insert(dynamicBlock.end(), staticBlock.begin(), staticBlock.end());
+                dynamicBlock.push_back(std::move(userInput));
             }
 
             _scopeBlocks.push(' ');
@@ -63,29 +64,30 @@ void CommandProcessor::run()
 
             if (_scopeBlocks.empty())
             {
-                writeFile(tmp);
-                tmp.clear();
+                writeFile(dynamicBlock);
+                dynamicBlock.clear();
 //                _cmdHistory.push_back(std::move(block));
 //                openFile();
             }
         }
         else
         {
-            if ((_blockSize > block.size()) && !block.empty())
+            if ((_blockSize > staticBlock.size()) && !staticBlock.empty())
             {
-                block.push_back(std::move(userInput));
+                staticBlock.push_back(std::move(userInput));
             }
-            else if (block.empty())
+            else if (staticBlock.empty())
             {
                 openFile();
-                block.push_back(std::move(userInput));
+                staticBlock.push_back(std::move(userInput));
             }
-            else if (_blockSize == block.size())
+            else if (_blockSize == staticBlock.size())
             {
-                writeFile(block);
+                writeFile(staticBlock);
+                staticBlock.clear();
 
 //                _cmdHistory.push_back(std::move(block));
-                block.push_back(std::move(userInput));
+                staticBlock.push_back(std::move(userInput));
                 openFile();
             }
         }
