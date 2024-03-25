@@ -38,19 +38,9 @@ void CommandProcessor::run()
         {
             if (_scopeBlocks.empty())
             {
-                // dynamicBlock = staticBlock;
                 writeFile(staticBlock);
                 staticBlock.clear();
-//                _cmdHistory.push_back(std::move(block));
-//                openFile();
-            }
-            else
-            {
-//                block.resize(block.size() * 10); // NOTE: ?
-//                tmp.push_back(std::move(block));
-//                tmp = std::move(block);
-                // dynamicBlock.insert(dynamicBlock.end(), staticBlock.begin(), staticBlock.end());
-                dynamicBlock.push_back(std::move(userInput));
+               openFile();
             }
 
             _scopeBlocks.push(' ');
@@ -66,12 +56,16 @@ void CommandProcessor::run()
             {
                 writeFile(dynamicBlock);
                 dynamicBlock.clear();
-//                _cmdHistory.push_back(std::move(block));
-//                openFile();
             }
         }
         else
         {
+            if (!_scopeBlocks.empty())
+            {
+                dynamicBlock.push_back(std::move(userInput));
+                continue;
+            }
+
             if ((_blockSize > staticBlock.size()) && !staticBlock.empty())
             {
                 staticBlock.push_back(std::move(userInput));
@@ -85,8 +79,6 @@ void CommandProcessor::run()
             {
                 writeFile(staticBlock);
                 staticBlock.clear();
-
-//                _cmdHistory.push_back(std::move(block));
                 staticBlock.push_back(std::move(userInput));
                 openFile();
             }
