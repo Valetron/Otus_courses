@@ -15,19 +15,10 @@ CommandProcessor::~CommandProcessor()
     closeFile();
 }
 
-void CommandProcessor::printCommands(const CommandBlock& block)
-{
-
-    for (const auto& cmd : block)
-    {
-        std::cout << cmd << ' ';
-    }
-    std::cout << "\n";
-}
-
 void CommandProcessor::run()
 {
     CommandBlock block;
+    CommandBlock tmp;
     block.reserve(_blockSize);
 
     while (true)
@@ -37,8 +28,9 @@ void CommandProcessor::run()
 
         if (userInput.empty())
         {
-            // TODO: check end dyn block
-            writeFile(block);
+            if (_scopeBlocks.empty())
+                writeFile(block);
+
             break;
         }
 
@@ -46,13 +38,18 @@ void CommandProcessor::run()
         {
             if (_scopeBlocks.empty())
             {
+                tmp = block;
                 writeFile(block);
-                _cmdHistory.push_back(std::move(block));
-                openFile();
+                block.clear();
+//                _cmdHistory.push_back(std::move(block));
+//                openFile();
             }
             else
             {
-                block.resize(block.size() * 10); // NOTE: ?
+//                block.resize(block.size() * 10); // NOTE: ?
+//                tmp.push_back(std::move(block));
+//                tmp = std::move(block);
+                tmp.insert(tmp.end(), block.begin(), block.end());
             }
 
             _scopeBlocks.push(' ');
@@ -66,9 +63,10 @@ void CommandProcessor::run()
 
             if (_scopeBlocks.empty())
             {
-                writeFile(block);
-                _cmdHistory.push_back(std::move(block));
-                openFile();
+                writeFile(tmp);
+                tmp.clear();
+//                _cmdHistory.push_back(std::move(block));
+//                openFile();
             }
         }
         else
@@ -86,7 +84,7 @@ void CommandProcessor::run()
             {
                 writeFile(block);
 
-                _cmdHistory.push_back(std::move(block));
+//                _cmdHistory.push_back(std::move(block));
                 block.push_back(std::move(userInput));
                 openFile();
             }
@@ -96,6 +94,9 @@ void CommandProcessor::run()
 
 void CommandProcessor::openFile()
 {
+    if (_file.is_open())
+        return;
+
     const auto now = system_clock::now();
     const auto time = system_clock::to_time_t(now);
     const std::string filename = "bulk" + std::to_string(time) + ".log";

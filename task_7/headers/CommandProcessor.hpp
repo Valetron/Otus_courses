@@ -15,7 +15,6 @@ public:
     void run();
 
 private:
-    void printCommands(const CommandBlock&);
     void closeFile();
     void openFile();
     void writeFile(const CommandBlock&);
