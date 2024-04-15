@@ -4,3 +4,4 @@ build*/
 *.zip
 examples/
 .vscode
+*.user
