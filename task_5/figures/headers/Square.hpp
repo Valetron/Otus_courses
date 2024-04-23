@@ -1,9 +1,9 @@
 #pragma once
 
-#include "IPolygon.hpp"
+#include "Rectangle.hpp"
 
 
-class Square final : public IPolygon
+class Square final : public Rectangle
 {
 public:
     Square();

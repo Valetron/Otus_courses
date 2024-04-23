@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Square::Square() : IPolygon()
+Square::Square() : Rectangle()
 {
     std::cout << "Square ctor\n";
 }

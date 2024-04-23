@@ -3,10 +3,10 @@
 #include "IPolygon.hpp"
 
 
-class Triangle final : public IPolygon
+class Rectangle : public IPolygon
 {
 public:
-    Triangle();
-    ~Triangle();
+    Rectangle();
+    ~Rectangle();
     void draw() override;
 };
