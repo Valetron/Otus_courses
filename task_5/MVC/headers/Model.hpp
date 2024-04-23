@@ -3,13 +3,13 @@
 #include <vector>
 #include <memory>
 
-#include "IFigure.hpp"
+// #include "IFigure.hpp"
 
 class Model final
 {
 public:
-    Model();
+    Model() = default;
 
-private:
-    std::vector<std::unique_ptr<IFigure>> _figures;
+// private:
+//     std::vector<std::unique_ptr<IFigure>> _figures;
 };

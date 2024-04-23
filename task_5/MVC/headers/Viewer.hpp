@@ -2,5 +2,6 @@
 
 class Viewer final
 {
-
+public:
+    Viewer() = default;
 };

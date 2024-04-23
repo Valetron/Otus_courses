@@ -21,6 +21,7 @@ void Controller::run()
         if ('q' == userInput)
         {
             _runnig = false;
+            std::cout << "Bye! Bye!\n";
         }
         else if ('h' == userInput)
         {
@@ -53,10 +54,30 @@ void Controller::run()
 
 void Controller::printHelp()
 {
-    std::clog << "q - exit\n"
+    std::cout << "q - exit\n"
                  "h - print this help\n"
                  "d - draw figure\n"
                  "e - erase figure\n"
                  "i - import file\n"
                  "s - export file\n";
+}
+
+void Controller::drawFigure()
+{
+    std::cout << "drawFigure\n";
+}
+
+void Controller::eraseFigure()
+{
+    std::cout << "eraseFigure\n";
+}
+
+void Controller::saveFile(const std::string& fileName)
+{
+    std::cout << "save file " << fileName << "\n";
+}
+
+void Controller::loadFile(const std::string& fileName)
+{
+    std::cout << "load file " << fileName << "\n";
 }

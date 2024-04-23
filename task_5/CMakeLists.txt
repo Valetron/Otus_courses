@@ -12,9 +12,9 @@ include_directories("${MVC_FOLDER}/headers")
 include_directories("${FIGURES_FOLDER}/headers")
 
 file(GLOB SOURCES "${MVC_FOLDER}/src/*.cpp")
-file(GLOB SOURCES "${FIGURES_FOLDER}/src/*.cpp")
 file(GLOB HEADERS "${MVC_FOLDER}/headers/*.hpp")
-file(GLOB HEADERS "${FIGURES_FOLDER}/headers/*.hpp")
+list(APPEND ${SOURCES} "${FIGURES_FOLDER}/src/*.cpp")
+list(APPEND ${SOURCES} "${FIGURES_FOLDER}/headers/*.hpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} main.cpp)
 
