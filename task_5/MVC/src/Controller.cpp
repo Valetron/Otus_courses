@@ -6,12 +6,13 @@
 Controller::Controller()
 {
     _model = std::make_unique<Model>();
-    _viewer = std::make_unique<Viewer>();
 }
 
 void Controller::run()
 {
     char userInput;
+
+    printHelp();
 
     while (_runnig)
     {
@@ -29,21 +30,29 @@ void Controller::run()
         }
         else if ('d' == userInput)
         {
-            drawFigure();
+            const auto tmpStr = chooseFigure();
+            _model->addFigure(std::move(tmpStr));
+        }
+        else if ('e' == userInput)
+        {
+            int idx;
+            std::cout << "index >> ";
+            std::cin >> idx;
+            _model->removeFigure(idx);
         }
         else if ('i' == userInput)
         {
             std::string fileName;
             std::cout << "File to load: ";
             std::cin >> fileName;
-            loadFile(fileName);
+            _model->loafFile(std::move(fileName));
         }
         else if ('s' == userInput)
         {
             std::string fileName;
             std::cout << "File to save: ";
             std::cin >> fileName;
-            saveFile(fileName);
+            _model->saveFile(std::move(fileName));
         }
         else
         {
@@ -62,22 +71,35 @@ void Controller::printHelp()
                  "s - export file\n";
 }
 
-void Controller::drawFigure()
+const std::string Controller::chooseFigure() const
 {
-    std::cout << "drawFigure\n";
-}
+    std::string figure;
+    int userInput;
 
-void Controller::eraseFigure()
-{
-    std::cout << "eraseFigure\n";
-}
+    std::cout << "1 - Rectangle\n"
+                 "2 - Triangle\n"
+                 "3 - Square\n"
+                 "4 - Circle\n"
+                 "index >> ";
+    std::cin >> userInput;
 
-void Controller::saveFile(const std::string& fileName)
-{
-    std::cout << "save file " << fileName << "\n";
-}
+    switch (userInput)
+    {
+    case 1:
+        figure = "Rectangle";
+        break;
+    case 2:
+        figure = "Triangle";
+        break;
+    case 3:
+        figure = "Square";
+        break;
+    case 4:
+        figure = "Circle";
+        break;
+    default:
+        break;
+    }
 
-void Controller::loadFile(const std::string& fileName)
-{
-    std::cout << "load file " << fileName << "\n";
+    return figure;
 }

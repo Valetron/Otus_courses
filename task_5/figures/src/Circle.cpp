@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Circle::Circle() : IFigure()
+Circle::Circle() /*: IFigure()*/
 {
     std::cout << "Circle ctor\n";
 }

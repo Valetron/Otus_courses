@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Triangle::Triangle() : IPolygon()
+Triangle::Triangle() /*: IPolygon()*/
 {
     std::cout << "Triangle ctor\n";
 }

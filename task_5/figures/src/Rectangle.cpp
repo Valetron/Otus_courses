@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-Rectangle::Rectangle() : IPolygon()
+Rectangle::Rectangle() /*: IPolygon()*/
 {
     std::cout << "Rectangle ctor\n";
 }
