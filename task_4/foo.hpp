@@ -3,7 +3,6 @@
 #include <list>
 #include <vector>
 #include <iostream>
-#include <algorithm>
 #include <type_traits>
 
 namespace homework
@@ -11,16 +10,22 @@ namespace homework
 namespace MetaFoo
 {
 template <typename T>
-struct is_container : std::false_type { };
+struct is_container : std::false_type
+{
+    static const bool value = false;
+};
 
 template <typename T, typename Alloc>
 struct is_container<std::vector<T, Alloc>> : std::true_type { };
 
 template <typename T, typename Alloc>
 struct is_container<std::list<T, Alloc>> : std::true_type { };
+
+template <class T>
+inline constexpr bool is_container_v = is_container<T>::value;
 }
 
-template <class Container, class = std::enable_if_t<MetaFoo::is_container<Container>::value>>
+template <class Container, std::enable_if_t<MetaFoo::is_container_v<Container>, bool> = true>
 void print_ip(const Container& container)
 {
     int16_t counter = 0;
@@ -39,31 +44,31 @@ void print_ip(const Container& container)
     std::cout << "\n";
 }
 
-template <class T, class = std::enable_if_t<std::is_arithmetic<T>::value>>
+template <class T, std::enable_if_t<std::is_arithmetic_v<T>, bool> = true>
 void print_ip(T ip)
 {
     const auto sizeT = sizeof(ip);
     const auto data = reinterpret_cast<
-#if __cplusplus < 201703L
+#if __cplusplus >= 201703L
         std::byte
 #else
         unsigned char
 #endif
         *>(&ip);
 
-    for (auto i = 0; i < sizeT; ++i)
+    for (int32_t i = sizeT - 1; i >= 0; --i) // NOTE: i - со знаком, чтобы избежать зацикливания при i = 0
     {
         std::cout << static_cast<int32_t>(data[i]);
-        if (i < sizeT - 1)
+        if (i > 0)
             std::cout << '.';
     }
 
     std::cout << "\n";
 }
 
-//template <typename T>
-//void print_ip(const T& obj)
-//{
-//    std::cout << obj << "\n";
-//}
+template <class String, std::enable_if_t<std::is_same_v<String, std::string>, bool> = true>
+void print_ip(const String& str)
+{
+    std::cout << str << "\n";
+}
 } // namespace homework
