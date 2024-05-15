@@ -71,4 +71,33 @@ void print_ip(const String& str)
 {
     std::cout << str << "\n";
 }
+
+template <std::size_t I = 0, class... T, std::enable_if_t<sizeof...(T) == I>>
+void print_ip(const std::tuple<T...>&)
+{
+    std::cout << "";
+}
+
+template <std::size_t I = 0, class... T, std::enable_if_t<I < sizeof...(T)>>
+void print_ip(const std::tuple<T...>& t)
+{
+    if (0 == I)
+    {
+        std::cout << std::get<I>(t) << print_ip<I + 1, T...>(t);
+        // return std::to_string(std::get<I>(t)) + print_ip<I + 1, T...>(t);
+    }
+
+    std::cout << "." << std::get<I>(t) << print_ip<I + 1, T...>(t);
+    // return "." + std::to_string(std::get<I>(t)) + print_ip<I + 1, T...>(t);
+}
 } // namespace homework
+
+
+
+
+
+
+
+
+
+

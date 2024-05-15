@@ -14,7 +14,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
     homework::print_ip( std::string{"Hello, World!"} ); // Hello, World!
     homework::print_ip( std::vector<int>{100, 200, 300, 400} ); // 100.200.300.400
     homework::print_ip( std::list<short>{400, 300, 200, 100} ); // 400.300.200.100
-    // homework::print_ip( std::make_tuple(123, 456, 789, 0) ); // 123.456.789.0 // TODO: variadic args
+    homework::print_ip( std::make_tuple(123, 456, 789, 0) ); // 123.456.789.0 // TODO: variadic args
     // homework::print_ip( std::make_tuple("123", "456", 789, 0) ); // compile error
 
     return 0;
